@@ -49,11 +49,13 @@ class SteamUserLogon extends SteamUserMachineAuth {
 		let alreadyConnectingError = new Error('Already attempting to log on, cannot log on again');
 		process.nextTick(async () => {
 			if (this.steamID) {
-				throw alreadyLoggedOnError;
+				this.emit('error', alreadyLoggedOnError);
+				return;
 			}
 
 			if (this._connecting) {
-				throw alreadyConnectingError;
+				this.emit('error', alreadyConnectingError);
+				return;
 			}
 
 			this.steamID = null;
