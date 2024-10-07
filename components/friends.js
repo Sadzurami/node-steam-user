@@ -1053,6 +1053,10 @@ function processInviteToken(userSteamId, token) {
 // Handlers
 
 SteamUserBase.prototype._handlerManager.add(EMsg.ClientPersonaState, function(body) {
+	// workaround for https://github.com/DoctorMcKay/node-steam-user/issues/441
+	return;
+
+	// eslint-disable-next-line no-unreachable
 	body.friends.forEach((u) => {
 		/**
 		 * @type {Proto_CMsgClientPersonaState_Friend}
